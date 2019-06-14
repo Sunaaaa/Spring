@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="spring.biz"></context:component-scan>
+
+<!-- 
+	<bean id="dao" class="spring.biz.user.dao.UserDAO_JDBC"></bean>
+	<bean id="spring" class="spring.biz.user.dao.UserDAO_spring"></bean>
+	<bean id="mybatis" class="spring.biz.user.dao.UserDAO_MyBatis"></bean>
+
+	<bean id="userservice" class="spring.biz.user.service.UserServiceImpl"
+			 autowire="byName"	>
+
+		<constructor-arg ref="mybatis"></constructor-arg>
+		<property name="dao" ref="jdbc"></property>
+
+		
+	</bean>
+	
+	<bean id="user01" class="spring.biz.user.vo.UserVO"/>
+	<bean id="user02" class="spring.biz.user.vo.UserVO">
+		<constructor-arg index="0" value="java01"/>
+		<constructor-arg index="1" value="홍길동"/>
+		<constructor-arg index="2" value="1234"/>
+		<constructor-arg index="3" value="ㅎ@c.net"/>
+		<constructor-arg index="4" value="010-2222-5553"/>
+		<constructor-arg index="5" value="경기도 수원시"/>
+		
+	</bean>
+	<bean id="user03" class="spring.biz.user.vo.UserVO"
+	 p:email="aa.@aa.com" p:address="안드로메다" p:phone="010-5555-7777">
+
+		<property name="userid" value="java03"></property>
+		<property name="username" value="홍길동"></property>
+		<property name="userpwd" value="1234"></property>
+		<property name="address" value="경기도 수원시"></property>
+		<property name="email" value="e@d.com"></property>
+		<property name="phone" value="010-4567-1230"></property>
+		
+		
+	</bean>
+	 -->
+
+</beans>
