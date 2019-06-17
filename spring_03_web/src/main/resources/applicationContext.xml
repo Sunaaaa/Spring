@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<context:annotation-config />
+	<context:component-scan
+		base-package="spring.biz, aop"></context:component-scan>
+	<aop:aspectj-autoproxy/>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe"></property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="TIGER"></property>
+	</bean>
+	
+	
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:/mybatis_config.xml"></property>
+<!-- 	<property name="mapperLocations" value="classpath:/mapper/user_mapper.xml"></property> -->
+	</bean>
+<!-- 
+	<bean id="sqlSessionFactoryBean_Board" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:/mybatis_config.xml"></property>
+		<property name="mapperLocations" value="classpath:/mapper/board_mapper.xml"></property>
+	</bean>	
+
+	<bean id="sqlSession_Board" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryBean_Board"></constructor-arg>
+	</bean>	
+	 -->
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>
+
+	
+	<bean id="template" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<!-- 다국어 설정 / Message 파일 등록 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<value>messages.message</value>
+		</property>
+	</bean>
+
+<!-- 
+	<bean id="advice" class="aop.Advice"></bean>
+	<aop:config>
+		<aop:pointcut
+			expression="execution(* spring.biz.user.service.UserService.login(..))"
+			id="mp" />
+
+		ref는 Advice Bean의 id
+		<aop:aspect ref="advice">
+
+			<aop:before method="log" pointcut-ref="mp" /> <aop:after-returning 
+				method="after_Return" pointcut-ref="mp" returning="data"/>
+				<aop:around method="around" pointcut-ref="mp"/>
+		</aop:aspect>
+	</aop:config>
+
+
+ -->
+
+
+</beans>

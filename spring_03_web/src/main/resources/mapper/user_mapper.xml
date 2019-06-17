@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<resultMap type="uservo" id="sample">
+		<result property="userid" column="userid"/>
+		<result property="userpwd" column="userpwd"/>
+		<result property="username" column="username"/>
+		<result property="email" column="phone"/>
+		<result property="phone" column="email"/>
+		<result property="address" column="address"/>
+	</resultMap>
+
+	<select id="login" parameterType="uservo" resultType="uservo" >
+		<!-- 	resultMap = "sample	" -->	
+		
+		select * from userinfo where userid= #{userid} and userpwd = #{userpwd}
+	</select>
+
+	<select id="getuser" resultType="uservo">
+		select * from userinfo where userid = #{userid}
+	</select>
+
+	<select id="getuserlist" resultType="uservo">
+		select * from userinfo order by userid
+	</select>
+
+	<insert id="adduser" parameterType="uservo">
+		insert into userinfo (userid, username, userpwd, email, phone,address)
+		values (#{userid}, #{username}, #{userpwd}, #{email}, #{phone},
+		#{address})
+	</insert>
+
+	<update id="updateuser" parameterType="uservo">
+		update userinfo set email=#{email},phone=#{phone},address=#{address} where
+		userid = #{userid}
+	</update>
+
+	<delete id="deleteuser">
+		delete from userinfo where userid = #{userid}
+	</delete>
+
+	<select id="search" resultType="uservo" parameterType="hashMap">
+		select * from userinfo
+
+		<where>
+			<if test="userid != null">userid like '%'||#{userid}||'%'</if>
+			<if test="username != null">username like '%'||#{username}||'%'</if>
+			<if test="email != null">email like '%'||#{email}||'%'</if>
+			<if test="phone != null">phone like '%'||#{phone}||'%'</if>
+		</where>
+	</select>
+
+</mapper>
